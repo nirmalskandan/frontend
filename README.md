@@ -1,3 +1,5 @@
+### 🧩 Repository: `frontend`
+
 #### 📦 Description
 React + TypeScript frontend app using Vite.
 
