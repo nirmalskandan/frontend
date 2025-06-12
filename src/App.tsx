@@ -4,24 +4,25 @@ function App() {
   const [message, setMessage] = useState("Loading...");
   const [mongoInfo, setMongoInfo] = useState(null);
 
-  // Check current browser path
   const path = window.location.pathname;
+
+  // ✅ Use API base URL from .env.local via Vite
+  const API_BASE_URL = import.meta.env.VITE_API_URL; // 🔥 This line uses the .env.local value
+
 
   useEffect(() => {
     if (path === "/") {
-      // Fetch backend greeting message only on root path
-      fetch("http://localhost:8000/")
+      fetch(`${API_BASE_URL}/`)
         .then((res) => res.json())
         .then((data) => setMessage(data.message))
         .catch(() => setMessage("Error connecting to backend"));
     } else if (path === "/mongo-test") {
-      // Fetch MongoDB info only on /mongo-test path
-      fetch("http://localhost:8000/mongo-info")
+      fetch(`${API_BASE_URL}/mongo-info`)
         .then((res) => res.json())
         .then((data) => setMongoInfo(data))
         .catch(() => setMongoInfo({ status: "error", message: "Unable to connect" }));
     }
-  }, [path]);
+  }, [path, API_BASE_URL]);
 
   if (path === "/") {
     return <h1>{message}</h1>;

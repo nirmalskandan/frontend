@@ -1,0 +1,30 @@
+services:
+  frontend:
+    container_name: frontend
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - .:/app
+      - /app/node_modules
+    ports:
+      - "3000:3000"
+    command: npm run dev -- --host
+    profiles:
+      - dev
+
+  frontend-prod:
+    container_name: frontend-prod
+    build:
+      context: .
+      dockerfile: Dockerfile.prod
+    ports:
+      - "3000:80"
+    command: ["nginx", "-g", "daemon off;"]
+    profiles:
+      - prod
+
+networks:
+  default:
+    external: true
+    name: app-shared
