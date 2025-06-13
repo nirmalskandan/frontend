@@ -1,4 +1,4 @@
-name: Validate Docker Compose (Frontend)
+name: Validate Frontend
 
 on:
   push:
@@ -14,6 +14,19 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install frontend dependencies
+        run: |
+          npm ci
+
+      - name: Run TypeScript check
+        run: |
+          npx tsc --noEmit
 
       - name: Validate Docker Compose syntax
         run: |
