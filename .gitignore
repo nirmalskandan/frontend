@@ -404,3 +404,12 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+
+
+#my own
+dist/
+.env
+.vite/
+.cache/
+*.log
